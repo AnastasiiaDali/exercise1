@@ -46,20 +46,3 @@ func GetDataFromCLI() []int {
 
 	return numbers
 }
-
-//func DataDistributor(args Arguments) {
-//	if len(args.Numbers) != 0 {
-//		numbers = GetNumbersFromCLI(args.Numbers)
-//	} else if len(ArrayOfFileNamesFromCLI) != 0 {
-//		numbers = GetNumbersFromFile(args.File)
-//	}
-//	return numbers
-//}
-
-// what data are we getting from the flags?
-/*
-struct Arguments {
-	FileNames []string
-	Numbers []string
-}
-*/

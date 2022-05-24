@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func GetNumbersFromCLI() []int {
+func GetNumbersFromCLI(ArrayOfNumbersFromCLI []string) []int {
 	var numbers []int
 	var arrayOfNumbers []string
 

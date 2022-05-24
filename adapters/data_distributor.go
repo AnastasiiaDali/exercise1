@@ -6,9 +6,9 @@ func DataDistributor(ArrayOfFileNamesFromCLI []string, ArrayOfNumbersFromCLI []s
 	if len(ArrayOfNumbersFromCLI) != 0 && len(ArrayOfFileNamesFromCLI) != 0 {
 		return nil
 	} else if len(ArrayOfNumbersFromCLI) != 0 {
-		numbers = GetNumbersFromCLI()
+		numbers = GetNumbersFromCLI(ArrayOfNumbersFromCLI)
 	} else if len(ArrayOfFileNamesFromCLI) != 0 {
-		numbers = GetNumbersFromFile()
+		numbers = GetNumbersFromFile(ArrayOfFileNamesFromCLI)
 	}
 	return numbers
 }

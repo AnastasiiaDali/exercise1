@@ -8,7 +8,7 @@ import (
 	"exercise1/helpers"
 )
 
-func GetNumbersFromFile() []int {
+func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 	var numbers []int
 	var arrayOfInputs []string
 
