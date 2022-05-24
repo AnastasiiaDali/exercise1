@@ -14,4 +14,14 @@ func TestAdd(t *testing.T) {
 		}
 	})
 
+	t.Run("Should discards any duplicate numbers.", func(t *testing.T) {
+		numbers := []int{2, 2, 2, 3, 4, 4, 4}
+		got := Add(numbers)
+		want := 9
+
+		if got != want {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	})
+
 }

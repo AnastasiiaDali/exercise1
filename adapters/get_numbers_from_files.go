@@ -9,7 +9,7 @@ import (
 )
 
 func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
-	var numbers []int
+	var tempNumbers []int
 	var arrayOfInputs []string
 
 	for _, file := range ArrayOfFileNamesFromCLI {
@@ -22,7 +22,9 @@ func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 		arrayOfInputs = append(arrayOfInputs, input)
 	}
 
-	numbers = helpers.DataConverter(strings.Join(arrayOfInputs[:], ","))
+	tempNumbers = helpers.DataConverter(strings.Join(arrayOfInputs[:], ","))
+
+	numbers := helpers.UniqueNumbers(tempNumbers)
 
 	return numbers
 }

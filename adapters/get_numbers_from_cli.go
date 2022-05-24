@@ -3,10 +3,12 @@ package adapters
 import (
 	"strconv"
 	"strings"
+
+	"exercise1/helpers"
 )
 
 func GetNumbersFromCLI(ArrayOfNumbersFromCLI []string) []int {
-	var numbers []int
+	var tempNumbers []int
 	var arrayOfNumbers []string
 
 	for _, str := range ArrayOfNumbersFromCLI {
@@ -18,8 +20,8 @@ func GetNumbersFromCLI(ArrayOfNumbersFromCLI []string) []int {
 		if err != nil {
 			panic(err)
 		}
-		numbers = append(numbers, j)
+		tempNumbers = append(tempNumbers, j)
 	}
-
+	numbers := helpers.UniqueNumbers(tempNumbers)
 	return numbers
 }
