@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"net/http"
 
@@ -10,19 +11,20 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func handlerFunc(w http.ResponseWriter, r *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	var numbers []string
 	var values []int
 
+	//get numbers from url
 	num := r.URL.Query()
-
-	for k, v := range num {
+	for _, v := range num {
 		numbers = v
-		fmt.Println(k, " => ", v)
 	}
 
+	//convert number into array of integers
 	values = helpers.StringToIntConverter(numbers)
 
+	//pass number to add function and get the sum
 	sum := domain.Add(values)
 
 	res, err := json.Marshal(sum)
@@ -34,12 +36,22 @@ func handlerFunc(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+}
 
+func Server() {
+	r := mux.NewRouter()
+	r.HandleFunc("/add", handler).Methods(http.MethodPost)
+	fmt.Printf("Starting server on port 8081...\n")
+	http.ListenAndServe(":8081", r)
 }
 
 func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/add", handlerFunc).Methods(http.MethodPost)
-	fmt.Printf("Starting server for testing HTTP POST...\n")
-	http.ListenAndServe(":8081", r)
+	var startServer bool
+
+	flag.BoolVar(&startServer, "web-server", true, "a bool")
+	flag.Parse()
+
+	if startServer {
+		Server()
+	}
 }
