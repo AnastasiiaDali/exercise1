@@ -13,7 +13,10 @@ OR
 go run cmd/main.go --input-numbers="1,2,3" 
 ```
 
-
+## To run math program 
+```bash
+ go run math/main.go --web-server=true
+```
 
 ## Running Tests
 To run tests, run the following command inside exercise1 directory:
@@ -21,3 +24,4 @@ To run tests, run the following command inside exercise1 directory:
 ```bash
  go test ./...
 ```
+
