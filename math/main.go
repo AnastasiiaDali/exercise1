@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"net/http"
+	"os"
 
 	"exercise1/domain"
 	"exercise1/helpers"
@@ -46,12 +46,9 @@ func Server() {
 }
 
 func main() {
-	var startServer bool
+	startServer := os.Args[1]
 
-	flag.BoolVar(&startServer, "web-server", true, "a bool")
-	flag.Parse()
-
-	if startServer {
+	if startServer == "web-server" {
 		Server()
 	}
 }
