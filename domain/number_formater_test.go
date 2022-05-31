@@ -26,4 +26,15 @@ func TestFormatNumber(t *testing.T) {
 			t.Errorf("got %v, want %v", got, want)
 		}
 	})
+
+	t.Run("Given large number should return correctly formatted number with commas", func(t *testing.T) {
+		number := 100000000000
+
+		got := FormatNumber(number)
+		want := "100,000,000,000"
+
+		if got != want {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	})
 }
