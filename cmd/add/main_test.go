@@ -58,5 +58,4 @@ func TestCLI(t *testing.T) {
 			t.Fatal(err)
 		}
 	})
-
 }
