@@ -34,6 +34,7 @@ func TestMain(m *testing.M) {
 
 func TestCLI(t *testing.T) {
 	numbers := "1,2,3"
+	file := "data/input2.csv"
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -44,6 +45,14 @@ func TestCLI(t *testing.T) {
 
 	t.Run("Add number from CLI", func(t *testing.T) {
 		cmd := exec.Command(cmdPath, "--input-numbers", numbers)
+
+		if err := cmd.Run(); err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("Add file names from CLI", func(t *testing.T) {
+		cmd := exec.Command(cmdPath, "--input-file", file)
 
 		if err := cmd.Run(); err != nil {
 			t.Fatal(err)
