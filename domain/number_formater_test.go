@@ -5,7 +5,6 @@ import (
 )
 
 func TestFormatNumber(t *testing.T) {
-	t.Skip()
 	t.Run("Should return number without commas", func(t *testing.T) {
 		number := 9999
 
