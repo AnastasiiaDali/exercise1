@@ -8,6 +8,7 @@ import (
 )
 
 func TestDataDistributor(t *testing.T) {
+	t.Skip()
 	t.Run("test with numbers passed to the distributor", func(t *testing.T) {
 		mockArrayOfFileNamesFromCLI := []string{}
 		mockArrayOfNumbersFromCLI := []string{"1,2,3,4"}
