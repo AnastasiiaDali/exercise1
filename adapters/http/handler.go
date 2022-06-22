@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"exercise1/domain"
+	"exercise1/domain/calculator"
 	"exercise1/helpers/string_to_int_converter"
 )
 
@@ -22,7 +22,7 @@ func MathHandler(w http.ResponseWriter, r *http.Request) {
 	values = string_to_int_converter.StringToIntConverter(numbers)
 
 	//pass number to add function and get the sum
-	sum := domain.Add(values)
+	sum := calculator.Add(values)
 
 	res, err := json.Marshal(sum)
 

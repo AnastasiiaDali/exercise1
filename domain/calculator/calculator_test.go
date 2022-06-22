@@ -1,6 +1,8 @@
-package domain
+package calculator
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestAdd(t *testing.T) {
 	t.Run("Should take any number of integers and print out the sum.", func(t *testing.T) {

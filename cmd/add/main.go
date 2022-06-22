@@ -7,7 +7,8 @@ import (
 	"exercise1/adapters/data_distributor"
 	"exercise1/adapters/printer"
 	cli_flags "exercise1/cmd"
-	"exercise1/domain"
+	"exercise1/domain/calculator"
+	"exercise1/domain/formatter"
 )
 
 func main() {
@@ -22,10 +23,10 @@ func main() {
 	numbers := data_distributor.DataDistributor(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI)
 
 	//pass this numbers ro calculator and get the sum
-	sum := domain.Add(numbers)
+	sum := calculator.Add(numbers)
 
 	//pass sum to formatter and get desired formatted sum
-	formattedSum := domain.FormatNumber(sum)
+	formattedSum := formatter.FormatNumber(sum)
 
 	//print sum
 	printer.Printer(os.Stdout, formattedSum)

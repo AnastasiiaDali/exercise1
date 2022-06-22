@@ -1,4 +1,4 @@
-package domain
+package calculator
 
 func Add(numbers []int) int {
 	sum := 0
