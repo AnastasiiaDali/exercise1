@@ -21,7 +21,7 @@ func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 	fmt.Println(wdir)
 
 	for _, file := range ArrayOfFileNamesFromCLI {
-		fmt.Println(wdir + "/data/" + file)
+		fmt.Println("/data/" + file)
 		data, err := os.ReadFile(wdir + "/data/" + file)
 		if err != nil {
 			fmt.Println(err)

@@ -17,7 +17,7 @@ func TestDataDistributor(t *testing.T) {
 		assert.Equal(t, expected, result)
 	})
 	t.Run("test with file name passed to the distributor", func(t *testing.T) {
-		mockArrayOfFileNamesFromCLI := []string{"testdata/test_numbers.csv"}
+		mockArrayOfFileNamesFromCLI := []string{"input1.txt"}
 		mockArrayOfNumbersFromCLI := []string{}
 		result := data_distributor.DataDistributor(mockArrayOfFileNamesFromCLI, mockArrayOfNumbersFromCLI)
 		expected := []int{1, 2, 32, 321, 1234, 4567890}
@@ -25,7 +25,7 @@ func TestDataDistributor(t *testing.T) {
 	})
 
 	t.Run("test with 2 file names passed to the distributor", func(t *testing.T) {
-		mockArrayOfFileNamesFromCLI := []string{"/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.csv", "/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.txt"}
+		mockArrayOfFileNamesFromCLI := []string{"input2.csv", "input1.txt"}
 		mockArrayOfNumbersFromCLI := []string{}
 		result := data_distributor.DataDistributor(mockArrayOfFileNamesFromCLI, mockArrayOfNumbersFromCLI)
 		expected := []int{1, 2, 32, 321, 1234, 4567890, 33, 44, 55, 678}
