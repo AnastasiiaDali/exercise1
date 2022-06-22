@@ -1,4 +1,9 @@
-package adapters
+package data_distributor
+
+import (
+	"exercise1/adapters/get_numbers_from_cli"
+	"exercise1/adapters/get_numbers_from_files"
+)
 
 func DataDistributor(ArrayOfFileNamesFromCLI []string, ArrayOfNumbersFromCLI []string) []int {
 	var numbers []int
@@ -6,9 +11,9 @@ func DataDistributor(ArrayOfFileNamesFromCLI []string, ArrayOfNumbersFromCLI []s
 	if len(ArrayOfNumbersFromCLI) != 0 && len(ArrayOfFileNamesFromCLI) != 0 {
 		return nil
 	} else if len(ArrayOfNumbersFromCLI) != 0 {
-		numbers = GetNumbersFromCLI(ArrayOfNumbersFromCLI)
+		numbers = get_numbers_from_cli.GetNumbersFromCLI(ArrayOfNumbersFromCLI)
 	} else if len(ArrayOfFileNamesFromCLI) != 0 {
-		numbers = GetNumbersFromFile(ArrayOfFileNamesFromCLI)
+		numbers = get_numbers_from_files.GetNumbersFromFile(ArrayOfFileNamesFromCLI)
 	}
 	return numbers
 }

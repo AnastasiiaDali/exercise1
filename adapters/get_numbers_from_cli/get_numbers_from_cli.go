@@ -1,4 +1,4 @@
-package adapters
+package get_numbers_from_cli
 
 import (
 	"strconv"
