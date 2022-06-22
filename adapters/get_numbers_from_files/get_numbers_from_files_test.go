@@ -10,7 +10,7 @@ import (
 func TestGetNumbersFromFile(t *testing.T) {
 
 	t.Run("should return array of integers from one file", func(t *testing.T) {
-		testArrayOfFileName1 := []string{"../testdata/test_numbers.csv"}
+		testArrayOfFileName1 := []string{"/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.csv"}
 
 		expected := []int{1, 2, 32, 321, 1234, 4567890}
 		result := GetNumbersFromFile(testArrayOfFileName1)
@@ -21,7 +21,7 @@ func TestGetNumbersFromFile(t *testing.T) {
 	//number from the file function should remove duplicated numbers
 
 	t.Run("should return array of integers from three file", func(t *testing.T) {
-		testArrayOfFileName2 := []string{"../testdata/test_numbers.csv", "../testdata/test_numbers.txt", "../testdata/test_number2.txt"}
+		testArrayOfFileName2 := []string{"/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.csv", "/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.txt", "/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_number2.txt"}
 
 		expected := []int{1, 2, 32, 321, 1234, 4567890, 33, 44, 55, 678}
 		result := GetNumbersFromFile(testArrayOfFileName2)
