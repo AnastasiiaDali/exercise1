@@ -7,7 +7,6 @@ import (
 )
 
 func TestGetNumbersFromCLI(t *testing.T) {
-	t.Skip()
 	strOfNum := []string{"1,2,3"}
 	want := []int{1, 2, 3}
 	got := GetNumbersFromCLI(strOfNum)
