@@ -7,6 +7,8 @@ import (
 	"os"
 	"os/exec"
 	"testing"
+
+	http2 "exercise1/adapters/http"
 )
 
 var (
@@ -32,11 +34,12 @@ func TestMain(m *testing.M) {
 }
 
 func TestServer(t *testing.T) {
-	t.Run("returns Floyd's score", func(t *testing.T) {
+	t.Run("returns the sum", func(t *testing.T) {
 		request, _ := http.NewRequest(http.MethodGet, "add?num=76&num=65", nil)
 		response := httptest.NewRecorder()
 
-		handler(response, request)
+		http2.MathHandler(response, request)
+		//http.MathHandler(response, request)
 
 		got := response.Body.String()
 		want := "141"
