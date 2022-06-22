@@ -1,4 +1,4 @@
-package helpers
+package unique_numbers
 
 func UniqueNumbers(s []int) []int {
 	inResult := make(map[int]bool)

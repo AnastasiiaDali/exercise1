@@ -1,4 +1,4 @@
-package helpers
+package string_to_int_converter
 
 import (
 	"testing"

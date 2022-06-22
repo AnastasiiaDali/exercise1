@@ -1,4 +1,4 @@
-package helpers
+package unique_numbers
 
 import (
 	"testing"

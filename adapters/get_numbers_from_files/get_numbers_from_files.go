@@ -5,7 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"exercise1/helpers"
+	"exercise1/helpers/data_converter"
+	"exercise1/helpers/unique_numbers"
 )
 
 func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
@@ -22,9 +23,9 @@ func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 		arrayOfInputs = append(arrayOfInputs, input)
 	}
 
-	tempNumbers = helpers.DataConverter(strings.Join(arrayOfInputs[:], ","))
+	tempNumbers = data_converter.DataConverter(strings.Join(arrayOfInputs[:], ","))
 
-	numbers := helpers.UniqueNumbers(tempNumbers)
+	numbers := unique_numbers.UniqueNumbers(tempNumbers)
 
 	return numbers
 }

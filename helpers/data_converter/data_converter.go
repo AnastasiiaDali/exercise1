@@ -1,7 +1,9 @@
-package helpers
+package data_converter
 
 import (
 	"regexp"
+
+	"exercise1/helpers/string_to_int_converter"
 )
 
 func DataConverter(input string) []int {
@@ -11,7 +13,7 @@ func DataConverter(input string) []int {
 	a := regexp.MustCompile(`(\s*(,|\n)\s*)`)
 	arrayOfnumbers = a.Split(input, -1)
 
-	numbersFromFile = StringToIntConverter(arrayOfnumbers)
+	numbersFromFile = string_to_int_converter.StringToIntConverter(arrayOfnumbers)
 
 	return numbersFromFile
 }

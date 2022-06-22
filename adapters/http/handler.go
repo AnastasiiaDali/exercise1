@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"exercise1/domain"
-	"exercise1/helpers"
+	"exercise1/helpers/string_to_int_converter"
 )
 
 func MathHandler(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +19,7 @@ func MathHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//convert number into array of integers
-	values = helpers.StringToIntConverter(numbers)
+	values = string_to_int_converter.StringToIntConverter(numbers)
 
 	//pass number to add function and get the sum
 	sum := domain.Add(values)
