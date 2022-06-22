@@ -8,10 +8,7 @@ import (
 )
 
 func TestDataDistributor(t *testing.T) {
-	t.Skip()
-
 	t.Run("test with numbers passed to the distributor", func(t *testing.T) {
-		t.Skip()
 		mockArrayOfFileNamesFromCLI := []string{}
 		mockArrayOfNumbersFromCLI := []string{"1,2,3,4"}
 		result := data_distributor.DataDistributor(mockArrayOfFileNamesFromCLI, mockArrayOfNumbersFromCLI)
@@ -19,7 +16,6 @@ func TestDataDistributor(t *testing.T) {
 		assert.Equal(t, expected, result)
 	})
 	t.Run("test with file name passed to the distributor", func(t *testing.T) {
-		t.Skip()
 		mockArrayOfFileNamesFromCLI := []string{"testdata/test_numbers.csv"}
 		mockArrayOfNumbersFromCLI := []string{}
 		result := data_distributor.DataDistributor(mockArrayOfFileNamesFromCLI, mockArrayOfNumbersFromCLI)
@@ -28,7 +24,6 @@ func TestDataDistributor(t *testing.T) {
 	})
 
 	t.Run("test with 2 file names passed to the distributor", func(t *testing.T) {
-		t.Skip()
 		mockArrayOfFileNamesFromCLI := []string{"/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.csv", "/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.txt"}
 		mockArrayOfNumbersFromCLI := []string{}
 		result := data_distributor.DataDistributor(mockArrayOfFileNamesFromCLI, mockArrayOfNumbersFromCLI)

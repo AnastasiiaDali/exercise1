@@ -26,7 +26,7 @@ go build -o math math/main.go
 ### Run Add Locally
 
 ```bash
-go run cmd/add/main.go --input-file="data/input2.csv" --input-file="data/input1.txt"
+go run cmd/add/main.go --input-file="input2.csv" --input-file="input1.txt"
 ```
 OR
 ```bash
