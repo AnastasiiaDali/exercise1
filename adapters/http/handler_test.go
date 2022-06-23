@@ -1,6 +1,7 @@
 package http_test
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -19,5 +20,12 @@ func TestMathHandler(t *testing.T) {
 
 	http2.MathHandler(res, req)
 
+	var sum interface{}
+	var expected float64 = 100
+
+	err := json.Unmarshal(res.Body.Bytes(), &sum)
+	assert.NoError(t, err)
+
 	assert.Equal(t, http.StatusOK, res.Code)
+	assert.Equal(t, expected, sum)
 }
