@@ -7,6 +7,9 @@ import (
 	"exercise1/adapters/get_numbers_from_files"
 )
 
+// it seems like this function does not need test since its only responsibility is to call other functions
+//depends on arguments passed to it
+
 func DataDistributor(ArrayOfFileNamesFromCLI []string, ArrayOfNumbersFromCLI []string) []int {
 	var numbers []int
 	fmt.Println(ArrayOfFileNamesFromCLI)
