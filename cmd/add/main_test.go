@@ -31,11 +31,11 @@ func TestMain(m *testing.M) {
 }
 
 //go run cmd/add/main.go --input-numbers="1,2,3"
+//go run cmd/add/main.go --input-file="input2.csv"
 
 func TestCLI(t *testing.T) {
-	t.Skip()
 	numbers := "1,2,3"
-	file := "data/input2.csv"
+	file := "input2.csv"
 
 	dir, err := os.Getwd()
 	if err != nil {
