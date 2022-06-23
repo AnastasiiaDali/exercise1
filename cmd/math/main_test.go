@@ -3,13 +3,10 @@ package main
 //
 //import (
 //	"fmt"
-//	"net/http"
-//	"net/http/httptest"
 //	"os"
 //	"os/exec"
+//	"path/filepath"
 //	"testing"
-//
-//	http2 "exercise1/adapters/http"
 //)
 //
 //var (
@@ -17,6 +14,7 @@ package main
 //)
 //
 //func TestMain(m *testing.M) {
+//
 //	fmt.Println("Building tool...")
 //	build := exec.Command("go", "build", "-o", binName)
 //
@@ -34,19 +32,19 @@ package main
 //	os.Exit(result)
 //}
 //
-//func TestServer(t *testing.T) {
-//	t.Run("returns the sum", func(t *testing.T) {
-//		request, _ := http.NewRequest(http.MethodGet, "add?num=76&num=65", nil)
-//		response := httptest.NewRecorder()
+//func TestCLI(t *testing.T) {
+//	dir, err := os.Getwd()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
 //
-//		http2.MathHandler(response, request)
-//		//http.MathHandler(response, request)
+//	cmdPath := filepath.Join(dir, binName)
 //
-//		got := response.Body.String()
-//		want := "141"
+//	t.Run("start the server after passing correct flag", func(t *testing.T) {
+//		cmd := exec.Command(cmdPath, "--web-server")
 //
-//		if got != want {
-//			t.Errorf("got %q, want %q", got, want)
+//		if err := cmd.Run(); err != nil {
+//			t.Fatal(err)
 //		}
 //	})
 //}
