@@ -1,32 +1,37 @@
-package get_numbers_from_files_test
+package get_numbers_from_files
 
 import (
+	"bytes"
 	"testing"
 
-	"exercise1/adapters/get_numbers_from_files"
 	"github.com/stretchr/testify/assert"
 )
 
 //get number from the file function returns an array of integers extracted from the file.
 func TestGetNumbersFromFile(t *testing.T) {
-	t.Skip()
-	t.Run("should return array of integers from one file", func(t *testing.T) {
-		testArrayOfFileName1 := []string{"input1.csv"}
+	t.Run("", func(t *testing.T) {
+		expectedData := "1, 2, 3, 4"
 
-		expected := []int{1, 2, 32, 321, 1234, 4567890}
-		result := get_numbers_from_files.GetNumbersFromFile(testArrayOfFileName1)
-		assert.Equal(t, expected, result)
+		var buffer bytes.Buffer
+
+		buffer.WriteString("1, 2, 3, 4")
+		content, err := readFile(&buffer)
+		if err != nil {
+			t.Error("Failed to read csv data")
+		}
+		assert.Equal(t, content, expectedData)
+
 	})
+	t.Run("", func(t *testing.T) {
+		expectedData := "1\n2\n3\n4\n500"
 
-	//numbers in test_numbers2.txt and test_numbers.csv file are the same,
-	//number from the file function should remove duplicated numbers
+		var buffer bytes.Buffer
 
-	t.Run("should return array of integers from three file", func(t *testing.T) {
-		t.Skip()
-		testArrayOfFileName2 := []string{"/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.csv", "/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_numbers.txt", "/Users/anastasiia.dalakishvili/github/personal/exercise1/testdata/test_number2.txt"}
-
-		expected := []int{1, 2, 32, 321, 1234, 4567890, 33, 44, 55, 678}
-		result := get_numbers_from_files.GetNumbersFromFile(testArrayOfFileName2)
-		assert.Equal(t, expected, result)
+		buffer.WriteString("1\n2\n3\n4\n500")
+		content, err := readFile(&buffer)
+		if err != nil {
+			t.Error("Failed to read csv data")
+		}
+		assert.Equal(t, content, expectedData)
 	})
 }

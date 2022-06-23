@@ -1,7 +1,9 @@
 package get_numbers_from_files
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -18,17 +20,23 @@ func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(wdir)
 
 	for _, file := range ArrayOfFileNamesFromCLI {
-		fmt.Println("/data/" + file)
-		data, err := os.ReadFile(wdir + "/data/" + file)
+		filePath := wdir + "/data/" + file
+
+		d, err := os.Open(filePath)
 		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
+			fmt.Printf("Failed to open file: %s", filePath)
+			return nil
 		}
-		input := string(data)
-		arrayOfInputs = append(arrayOfInputs, input)
+
+		data, err := readFile(d)
+		if err != nil {
+			fmt.Printf("Failed to read file: %s", file)
+			return nil
+		}
+		arrayOfInputs = append(arrayOfInputs, data)
+		d.Close()
 	}
 
 	tempNumbers = data_converter.DataConverter(strings.Join(arrayOfInputs[:], ","))
@@ -36,4 +44,18 @@ func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 	numbers := unique_numbers.UniqueNumbers(tempNumbers)
 
 	return numbers
+
+}
+
+func readFile(reader io.Reader) (string, error) {
+	var lines []string
+
+	scanner := bufio.NewScanner(reader)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	if err := scanner.Err(); err != nil {
+		panic(err)
+	}
+	return strings.Join(lines, "\n"), nil
 }
