@@ -1,17 +1,27 @@
 package calculator
 
 import (
+	"math"
 	"testing"
 )
 
 func TestAdd(t *testing.T) {
-	t.Run("Should take any number of integers and print out the sum.", func(t *testing.T) {
-		numbers := []int{5, 4, 2, -10, 32, 14}
-		got := Add(numbers)
-		want := 47
+	testCases := []struct {
+		input []int
+		want  int
+	}{
+		{input: []int{5}, want: 5},
+		{input: []int{5, 4, 2, -10, 32, 14}, want: 47},
+		{input: []int{}, want: 0},
+		{input: []int{math.MaxInt, 2}, want: 0},
+	}
+	for _, tc := range testCases {
+		t.Run("Should take any number of integers and print out the sum", func(t *testing.T) {
+			got := Add(tc.input)
 
-		if got != want {
-			t.Errorf("got %v, want %v", got, want)
-		}
-	})
+			if got != tc.want {
+				t.Errorf("got %v, want %v", got, tc.want)
+			}
+		})
+	}
 }
