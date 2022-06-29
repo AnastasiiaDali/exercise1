@@ -26,7 +26,7 @@ func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 
 		d, err := os.Open(filePath)
 		if err != nil {
-			fmt.Printf("Failed to open file: %s", filePath)
+			fmt.Printf("Failed to open file: %s\n", filePath)
 			return nil
 		}
 
