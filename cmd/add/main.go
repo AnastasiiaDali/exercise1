@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"exercise1/adapters/data_distributor"
+	"exercise1/adapters/get_numbers_from_cli"
+	"exercise1/adapters/get_numbers_from_files"
 	"exercise1/adapters/printer"
 	cli_flags "exercise1/cmd"
 	"exercise1/domain/calculator"
@@ -13,9 +15,12 @@ import (
 
 func main() {
 
+	extractAndDeduplicateNumbers := get_numbers_from_cli.ExtractAndDeduplicateNumbers
+	getNumbersFromFile := get_numbers_from_files.GetNumbersFromFile
+
 	ReadFlags()
 
-	numbers := data_distributor.DataDistributor(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI)
+	numbers := data_distributor.DataDistributor(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI, extractAndDeduplicateNumbers, getNumbersFromFile)
 
 	//pass this numbers ro calculator and get the sum
 	sum := calculator.Add(numbers)

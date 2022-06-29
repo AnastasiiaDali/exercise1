@@ -7,7 +7,7 @@ import (
 	"exercise1/helpers/unique_numbers"
 )
 
-func GetNumbersFromCLI(ArrayOfNumbersFromCLI []string) []int {
+func ExtractAndDeduplicateNumbers(ArrayOfNumbersFromCLI []string) []int {
 	var tempNumbers []int
 	var arrayOfNumbers []string
 

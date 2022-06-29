@@ -7,10 +7,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetNumbersFromCLI(t *testing.T) {
+func TestExtractAndDeduplicateNumbers(t *testing.T) {
 	strOfNum := []string{"1,2,3"}
 	want := []int{1, 2, 3}
-	got := get_numbers_from_cli.GetNumbersFromCLI(strOfNum)
+	got := get_numbers_from_cli.ExtractAndDeduplicateNumbers(strOfNum)
 
 	assert.Equal(t, want, got)
 }
