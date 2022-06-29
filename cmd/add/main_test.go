@@ -48,8 +48,8 @@ func TestCLIFlags(t *testing.T) {
 		cmd := exec.Command(cmdPath, "--input-numbers", numbers)
 
 		if err := cmd.Run(); err != nil {
-			t.Fatal(err)
 			fmt.Println("ops.. seems like the flag name is wrong")
+			t.Fatal(err)
 		}
 	})
 
@@ -57,8 +57,8 @@ func TestCLIFlags(t *testing.T) {
 		cmd := exec.Command(cmdPath, "--input-file", file)
 
 		if err := cmd.Run(); err != nil {
-			t.Fatal(err)
 			fmt.Println("ops.. seems like the flag name is wrong")
+			t.Fatal(err)
 		}
 	})
 }
