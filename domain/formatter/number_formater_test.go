@@ -5,7 +5,7 @@ import (
 )
 
 func TestFormatNumber(t *testing.T) {
-	t.Run("Should return number without commas", func(t *testing.T) {
+	t.Run("Given the number smaller than 10000 should return number without commas", func(t *testing.T) {
 		number := 9999
 
 		got := FormatNumber(number)
@@ -16,7 +16,7 @@ func TestFormatNumber(t *testing.T) {
 		}
 	})
 
-	t.Run("Should return number with commas", func(t *testing.T) {
+	t.Run("Given the number greater or equal to 10000 should return number with commas", func(t *testing.T) {
 		number := 10000
 
 		got := FormatNumber(number)
