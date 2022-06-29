@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"exercise1/domain/calculator"
+	"exercise1/domain/formatter"
 	"exercise1/helpers/string_to_int_converter"
 )
 
@@ -21,10 +22,11 @@ func MathHandler(w http.ResponseWriter, r *http.Request) {
 	//convert number into array of integers
 	values = string_to_int_converter.StringToIntConverter(numbers)
 
-	//pass number to add function and get the sum
+	//pass number to add function and get the sum and then format it
 	sum := calculator.Add(values)
+	formattedSum := formatter.FormatNumber(sum)
 
-	res, err := json.Marshal(sum)
+	res, err := json.Marshal(formattedSum)
 
 	w.Header().Add("Content-type", "text/plain")
 	w.WriteHeader(http.StatusOK)

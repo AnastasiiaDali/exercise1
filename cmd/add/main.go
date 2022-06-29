@@ -14,15 +14,14 @@ import (
 )
 
 func main() {
+	ReadFlags()
 
 	extractAndDeduplicateNumbers := get_numbers_from_cli.ExtractAndDeduplicateNumbers
 	getNumbersFromFile := get_numbers_from_files.GetNumbersFromFile
 
-	ReadFlags()
-
 	numbers := data_distributor.DataDistributor(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI, extractAndDeduplicateNumbers, getNumbersFromFile)
 
-	//pass this numbers ro calculator and get the sum
+	//pass this numbers to calculator and get the sum
 	sum := calculator.Add(numbers)
 
 	//pass sum to formatter and get desired formatted sum
