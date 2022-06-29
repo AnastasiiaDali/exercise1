@@ -15,28 +15,29 @@ Should return 141
 
 ### To build Add program go inside cmd folder and run
 ```bash
-go build -o add add/main.go 
+go build -o add cmd/add/main.go
 ```
 
 ### To build Math program go inside cmd folder and run
 ```bash
-go build -o math math/main.go 
+go build -o math cmd/math/main.go
 ```
 
 ### Run Add Locally
 
 ```bash
-go run cmd/add/main.go --input-file="input2.csv" --input-file="input1.txt"
+ ./add --input-file="input2.csv" --input-file="input1.txt"
 ```
 OR
 ```bash
-go run cmd/add/main.go --input-numbers="1,2,3" 
+ ./add --input-numbers="1,2,3" 
 ```
 
 ### Run Math Locally
 ```bash
  math --web-server
 ```
+./math
 
 ### Running Tests
 To run tests, run the following command inside exercise1 directory:

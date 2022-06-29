@@ -20,3 +20,6 @@ func TestDataDistributor(t *testing.T) {
 		assert.Len(t, get_numbers_from_cli.ExtractAndDeduplicateNumbers(fakeArrayOfNumbersFromCli), 0)
 	})
 }
+
+//mocks
+//create a mock for func and pass mock func to datadist and assert
