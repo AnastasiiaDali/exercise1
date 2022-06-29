@@ -7,11 +7,19 @@ import (
 )
 
 func TestDataConverter(t *testing.T) {
-	t.Run("Converter should return an array of integers", func(t *testing.T) {
-		data := "1,2,3"
-		var desiredRes []int
-		result := DataConverter(data)
+	testCases := []struct {
+		input string
+		want  []int
+	}{
+		{input: "1,2,3", want: []int{1, 2, 3}},
+		{input: "1\n2\n3", want: []int{1, 2, 3}},
+	}
 
-		assert.IsType(t, desiredRes, result)
-	})
+	for _, tc := range testCases {
+		t.Run("Converter should return an array of integers", func(t *testing.T) {
+			result := DataConverter(tc.input)
+
+			assert.IsType(t, result, tc.want)
+		})
+	}
 }
