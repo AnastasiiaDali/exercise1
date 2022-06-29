@@ -30,12 +30,8 @@ func TestMain(m *testing.M) {
 	os.Exit(result)
 }
 
-//go run cmd/add/main.go --input-numbers="1,2,3"
-//go run cmd/add/main.go --input-file="input2.csv"
-
 func TestCLIFlags(t *testing.T) {
 	numbers := "1,2,3"
-	file := "input2.csv"
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -44,21 +40,46 @@ func TestCLIFlags(t *testing.T) {
 
 	cmdPath := filepath.Join(dir, binName)
 
-	t.Run("Add number from CLI", func(t *testing.T) {
-		cmd := exec.Command(cmdPath, "--input-numbers", numbers)
+	cmd := exec.Command(cmdPath, "--input-numbers", numbers)
 
-		if err := cmd.Run(); err != nil {
-			fmt.Println("ops.. seems like the flag name is wrong")
-			t.Fatal(err)
-		}
-	})
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("ops.. seems like the flag name is wrong")
+		t.Fatal(err)
+	}
 
-	t.Run("Add file names from CLI", func(t *testing.T) {
-		cmd := exec.Command(cmdPath, "--input-file", file)
+	expected := fmt.Sprintf("Success, sum is 6\n")
 
-		if err := cmd.Run(); err != nil {
-			fmt.Println("ops.. seems like the flag name is wrong")
-			t.Fatal(err)
-		}
-	})
+	if expected != string(out) {
+		t.Errorf("Expected %q, got %q instead\n", expected, string(out))
+	}
+
 }
+
+//func TestCLIFlags2(t *testing.T) {
+//	file := "input2.csv"
+//
+//	dir, err := os.Getwd()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	cmdPath := filepath.Join(dir, binName)
+//	fmt.Printf("here is it %s\n", cmdPath)
+//
+//	t.Run("Add file names from CLI", func(t *testing.T) {
+//		cmd := exec.Command(cmdPath, "--input-file", file)
+//
+//		out, err := cmd.CombinedOutput()
+//		if err != nil {
+//			fmt.Println("ops.. seems like the flag name is wrong")
+//			t.Fatal(err)
+//		}
+//
+//		expected := fmt.Sprintf("[]\nSuccess, sum is 867,685\n")
+//
+//		if expected != string(out) {
+//			t.Errorf("Expected %q, got %q instead\n", expected, string(out))
+//		}
+//	})
+//}
