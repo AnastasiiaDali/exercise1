@@ -1,6 +1,7 @@
 package get_numbers_from_cli
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -12,13 +13,15 @@ func ExtractAndDeduplicateNumbers(ArrayOfNumbersFromCLI []string) []int {
 	var arrayOfNumbers []string
 
 	for _, str := range ArrayOfNumbersFromCLI {
-		arrayOfNumbers = strings.Split(str, ",")
+		stringWithoutSpaces := strings.ReplaceAll(str, " ", "")
+		arrayOfNumbers = strings.Split(stringWithoutSpaces, ",")
 	}
 
 	for _, i := range arrayOfNumbers {
 		j, err := strconv.Atoi(i)
 		if err != nil {
-			panic(err)
+			j = 0
+			fmt.Printf("not able to convert the %v that is not an integer. zero value has been assign instead\n", i)
 		}
 		tempNumbers = append(tempNumbers, j)
 	}
