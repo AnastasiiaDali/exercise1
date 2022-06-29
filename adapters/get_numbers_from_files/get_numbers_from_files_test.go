@@ -9,7 +9,7 @@ import (
 
 //get number from the file function returns an array of integers extracted from the file.
 func TestGetNumbersFromFile(t *testing.T) {
-	t.Run("", func(t *testing.T) {
+	t.Run("should return a string of numbers separated by comma - imitate txt file", func(t *testing.T) {
 		expectedData := "1, 2, 3, 4"
 
 		var buffer bytes.Buffer
@@ -22,7 +22,7 @@ func TestGetNumbersFromFile(t *testing.T) {
 		assert.Equal(t, content, expectedData)
 
 	})
-	t.Run("", func(t *testing.T) {
+	t.Run("should return a string of numbers, each number on the new line - imitate csv file", func(t *testing.T) {
 		expectedData := "1\n2\n3\n4\n500"
 
 		var buffer bytes.Buffer
