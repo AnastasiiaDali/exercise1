@@ -12,13 +12,8 @@ import (
 )
 
 func main() {
-	//get numbers passed to cli
-	flag.Var(&cli_flags.ArrayOfNumbersFromCLI, "input-numbers", "pass numbers")
 
-	//get files passed to cli
-	flag.Var(&cli_flags.ArrayOfFileNamesFromCLI, "input-file", "pass file name")
-
-	flag.Parse()
+	ReadFlags()
 
 	numbers := data_distributor.DataDistributor(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI)
 
@@ -30,4 +25,14 @@ func main() {
 
 	//print sum
 	printer.Printer(os.Stdout, formattedSum)
+}
+
+func ReadFlags() {
+	//get numbers passed to cli
+	flag.Var(&cli_flags.ArrayOfNumbersFromCLI, "input-numbers", "pass numbers")
+
+	//get files passed to cli
+	flag.Var(&cli_flags.ArrayOfFileNamesFromCLI, "input-file", "pass file name")
+
+	flag.Parse()
 }
