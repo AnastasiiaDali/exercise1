@@ -3,10 +3,15 @@ package data_distributor
 import (
 	"testing"
 
-	"exercise1/adapters/get_numbers_from_cli"
-	"exercise1/adapters/get_numbers_from_files"
 	"github.com/stretchr/testify/assert"
 )
+
+func mockExtractAndDeduplicateNumbers([]string) []int {
+	return nil
+}
+func mockGetNumbersFromFile([]string) []int {
+	return nil
+}
 
 func TestDataDistributor(t *testing.T) {
 	t.Skip()
@@ -14,10 +19,10 @@ func TestDataDistributor(t *testing.T) {
 		fakeArrayOfFileNames := []string{"file1", "file2"}
 		fakeArrayOfNumbersFromCli := []string{}
 
-		DataDistributor(fakeArrayOfFileNames, fakeArrayOfNumbersFromCli, get_numbers_from_cli.ExtractAndDeduplicateNumbers, get_numbers_from_files.GetNumbersFromFile)
+		DataDistributor(fakeArrayOfFileNames, fakeArrayOfNumbersFromCli, mockExtractAndDeduplicateNumbers, mockGetNumbersFromFile)
 
-		assert.Len(t, get_numbers_from_files.GetNumbersFromFile(fakeArrayOfFileNames), 1)
-		assert.Len(t, get_numbers_from_cli.ExtractAndDeduplicateNumbers(fakeArrayOfNumbersFromCli), 0)
+		assert.Len(t, mockExtractAndDeduplicateNumbers, 1)
+		assert.Len(t, mockGetNumbersFromFile, 0)
 	})
 }
 
