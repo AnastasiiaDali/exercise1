@@ -51,17 +51,17 @@ func TestCLIArg(t *testing.T) {
 		cmd := exec.Command(cmdPath, "--web-server")
 
 		fmt.Println("I am about to run")
-		err := cmd.Run()
+		_, err := cmd.CombinedOutput()
 		if err != nil {
-			fmt.Println("error executing the program")
+			fmt.Println("ops.. seems like the flag name is wrong")
 			t.Fatal(err)
 		}
 		fmt.Println("I am running now")
 
 		r := mux.NewRouter()
-		r.HandleFunc("/", http2.HealthCheckHandler).Methods(http.MethodGet)
+		r.HandleFunc("/edq", http2.HealthCheckHandler).Methods(http.MethodGet)
 
-		req := httptest.NewRequest(http.MethodGet, "/wedfew", nil)
+		req := httptest.NewRequest(http.MethodGet, "/", nil)
 		res := httptest.NewRecorder()
 
 		http2.HealthCheckHandler(res, req)
