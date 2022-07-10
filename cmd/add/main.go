@@ -19,7 +19,7 @@ func main() {
 	dataDistributor := data_distributor.New(dataCollector)
 
 	// get numbers from input
-	numbers := dataDistributor.Distribute(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI)
+	numbers := dataDistributor.Distribute(cli_flags.FileNamesFromCLI, cli_flags.NumbersFromCLI)
 
 	//pass this numbers to calculator and get the sum
 	calculator := calculator.New()
@@ -35,10 +35,10 @@ func main() {
 
 func ReadFlags() {
 	//get numbers passed to cli
-	flag.Var(&cli_flags.ArrayOfNumbersFromCLI, "input-numbers", "pass numbers")
+	flag.Var(&cli_flags.NumbersFromCLI, "input-numbers", "pass numbers")
 
 	//get files passed to cli
-	flag.Var(&cli_flags.ArrayOfFileNamesFromCLI, "input-file", "pass file name")
+	flag.Var(&cli_flags.FileNamesFromCLI, "input-file", "pass file name")
 
 	flag.Parse()
 }
