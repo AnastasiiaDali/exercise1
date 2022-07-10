@@ -1,30 +1,61 @@
-package data_distributor
+package data_distributor_test
 
 import (
 	"testing"
 
+	"exercise1/adapters/data_distributor"
 	"github.com/stretchr/testify/assert"
 )
 
-func mockExtractAndDeduplicateNumbers([]string) []int {
-	return nil
-}
-func mockGetNumbersFromFile([]string) []int {
-	return nil
+type mockDataCollector struct {
 }
 
-func TestDataDistributor(t *testing.T) {
+func (dc *mockDataCollector) ExtractAndDeduplicateNumbers(numbersFromCLI []string) []int {
+	var numbers []int
+	return numbers
+}
+
+func (dc *mockDataCollector) GetNumbersFromFile(fileNamesFromCLI []string) []int {
+	var numbers []int
+	return numbers
+}
+
+func TestDistribute(t *testing.T) {
 	t.Skip()
 	t.Run("Given array of file names should call GetNumbersFromFile function", func(t *testing.T) {
-		fakeArrayOfFileNames := []string{"file1", "file2"}
-		fakeArrayOfNumbersFromCli := []string{}
+		fakeFileNames := []string{"file1", "file2"}
+		fakeNumbersFromCli := []string{}
 
-		DataDistributor(fakeArrayOfFileNames, fakeArrayOfNumbersFromCli, mockExtractAndDeduplicateNumbers, mockGetNumbersFromFile)
+		dataCollector := &mockDataCollector{}
+		dataDistributor := data_distributor.New(dataCollector)
 
-		assert.Len(t, mockExtractAndDeduplicateNumbers, 1)
-		assert.Len(t, mockGetNumbersFromFile, 0)
+		dataDistributor.Distribute(fakeFileNames, fakeNumbersFromCli)
+
+		assert.Len(t, dataCollector.GetNumbersFromFile, 1)
+		assert.Len(t, dataCollector.ExtractAndDeduplicateNumbers, 0)
 	})
 }
+
+//
+//func mockExtractAndDeduplicateNumbers([]string) []int {
+//	return nil
+//}
+//func mockGetNumbersFromFile([]string) []int {
+//	return nil
+//}
+//
+//func TestDataDistributor(t *testing.T) {
+//	t.Skip()
+//	t.Run("Given array of file names should call GetNumbersFromFile function", func(t *testing.T) {
+//		fakeArrayOfFileNames := []string{"file1", "file2"}
+//		fakeArrayOfNumbersFromCli := []string{}
+//
+//		DataDistributor(fakeArrayOfFileNames, fakeArrayOfNumbersFromCli, mockExtractAndDeduplicateNumbers, mockGetNumbersFromFile)
+//
+//		assert.Len(t, mockExtractAndDeduplicateNumbers, 1)
+//		assert.Len(t, mockGetNumbersFromFile, 0)
+//	})
+//}
 
 //mocks
 //create a mock for func and pass mock func to datadist and assert
