@@ -1,8 +1,10 @@
-package calculator
+package calculator_test
 
 import (
 	"math"
 	"testing"
+
+	"exercise1/domain/calculator"
 )
 
 func TestAdd(t *testing.T) {
@@ -17,7 +19,8 @@ func TestAdd(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run("Should take any number of integers and print out the sum", func(t *testing.T) {
-			got := Add(tc.input)
+			calculator := calculator.New()
+			got := calculator.Add(tc.input)
 
 			if got != tc.want {
 				t.Errorf("got %v, want %v", got, tc.want)
