@@ -57,7 +57,7 @@ func TestCLIFlags(t *testing.T) {
 }
 
 func TestCLIFlags2(t *testing.T) {
-	file := "input2.csv"
+	file := "input1.txt"
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -75,7 +75,7 @@ func TestCLIFlags2(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	expected := fmt.Sprintf("Success, sum is 867,685\n")
+	expected := fmt.Sprintf("Success, sum is 867,684\n")
 
 	if expected != string(out) {
 		t.Errorf("Expected %q, got %q instead\n", expected, string(out))
