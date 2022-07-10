@@ -27,7 +27,8 @@ func main() {
 	sum := calculator.Add(numbers)
 
 	//pass sum to formatter and get desired formatted sum
-	formattedSum := formatter.FormatNumber(sum)
+	formatter := formatter.New()
+	formattedSum := formatter.FormatNumbers(sum)
 
 	//print sum
 	printer.Printer(os.Stdout, formattedSum)

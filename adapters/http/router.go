@@ -28,6 +28,8 @@ func NewRouter(calculatorService TempCalculator) http.Handler {
 func (s server) calculator(w http.ResponseWriter, r *http.Request) {
 	var numbersStr []string
 
+	formatter := formatter.New()
+
 	//get numbers from url
 	num := r.URL.Query()
 	for _, v := range num {
@@ -38,7 +40,7 @@ func (s server) calculator(w http.ResponseWriter, r *http.Request) {
 	numbers := string_to_int_converter.StringToIntConverter(numbersStr)
 
 	sum := s.tempCalculator.Add(numbers)
-	formatterSum := formatter.FormatNumber(sum)
+	formatterSum := formatter.FormatNumbers(sum)
 
 	res, err := json.Marshal(formatterSum)
 

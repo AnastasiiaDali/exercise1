@@ -6,9 +6,16 @@ import (
 	"strconv"
 )
 
+type NumberFormatter struct {
+}
+
+func New() *NumberFormatter {
+	return &NumberFormatter{}
+}
+
 //this function formats the number to thousands separated by comma
 
-func FormatNumber(num int) string {
+func (receiver NumberFormatter) FormatNumbers(num int) string {
 	if num > 9999 {
 		str := fmt.Sprintf("%d", num)
 		re := regexp.MustCompile("(\\d+)(\\d{3})")
