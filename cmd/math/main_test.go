@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
+	"net"
 	"net/http"
-	"net/http/httptest"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
+	"time"
 
-	http2 "exercise1/adapters/http"
-	"github.com/gorilla/mux"
+	temphttp "exercise1/adapters/http"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -37,36 +37,33 @@ func TestMain(m *testing.M) {
 	os.Exit(result)
 }
 
-func TestCLIArg(t *testing.T) {
-	t.Skip()
-	fmt.Println("I am here starting test")
+func TestMath_CalculatesAndReturnsSum(t *testing.T) {
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	cmdPath := filepath.Join(dir, binName)
+	cmd := exec.Command(cmdPath)
+	assert.NoError(t, cmd.Start())
 
-	t.Run("start the server after passing correct flag", func(t *testing.T) {
-		cmd := exec.Command(cmdPath, "--web-server")
+	waitForServer()
 
-		fmt.Println("I am about to run")
-		_, err := cmd.CombinedOutput()
-		if err != nil {
-			fmt.Println("ops.. seems like the flag name is wrong")
-			t.Fatal(err)
+	client := temphttp.NewClient("http://localhost:8081", &http.Client{})
+	numbers := []string{"11", "10"}
+	temp := client.Convert(numbers)
+	fmt.Printf("result %s\n", temp)
+	assert.NoError(t, err)
+	assert.Equal(t, "21", temp)
+}
+
+func waitForServer() {
+	for i := 0; i < 10; i++ {
+		conn, _ := net.Dial("tcp", net.JoinHostPort("localhost", "8081"))
+		if conn != nil {
+			conn.Close()
+			break
 		}
-		fmt.Println("I am running now")
-
-		r := mux.NewRouter()
-		r.HandleFunc("/edq", http2.HealthCheckHandler).Methods(http.MethodGet)
-
-		req := httptest.NewRequest(http.MethodGet, "/", nil)
-		res := httptest.NewRecorder()
-
-		http2.HealthCheckHandler(res, req)
-
-		assert.Equal(t, http.StatusOK, res.Code)
-		cmd.Process.Kill()
-	})
+		time.Sleep(100 * time.Millisecond)
+	}
 }
