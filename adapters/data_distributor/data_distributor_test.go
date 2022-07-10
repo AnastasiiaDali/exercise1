@@ -21,6 +21,7 @@ func (dc *mockDataCollector) ExtractAndDeduplicateNumbersFromFiles([]string) []i
 }
 
 func TestDistribute(t *testing.T) {
+	t.Skip()
 	t.Run("Given array of file names should call ExtractAndDeduplicateNumbersFromFiles function", func(t *testing.T) {
 		fakeFileNames := []string{"file1", "file2"}
 		fakeNumbersFromCli := []string{}
