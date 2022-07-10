@@ -5,7 +5,14 @@ import (
 	"math"
 )
 
-func Add(numbers []int) int {
+type Calculator struct {
+}
+
+func New() *Calculator {
+	return &Calculator{}
+}
+
+func (c Calculator) Add(numbers []int) int {
 	sum := 0
 	for _, num := range numbers {
 		if sum == math.MaxInt || num == math.MaxInt {

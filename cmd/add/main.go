@@ -22,6 +22,8 @@ func main() {
 	numbers := data_distributor.DataDistributor(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI, extractAndDeduplicateNumbers, getNumbersFromFile)
 
 	//pass this numbers to calculator and get the sum
+	calculator := calculator.New()
+
 	sum := calculator.Add(numbers)
 
 	//pass sum to formatter and get desired formatted sum
