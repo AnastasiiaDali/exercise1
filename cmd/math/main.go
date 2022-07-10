@@ -10,12 +10,12 @@ import (
 )
 
 func main() {
-
 	calculator := calculator.New()
 
 	router := temphttp.NewRouter(calculator)
 
 	fmt.Printf("Starting server on port 8081...\n")
+
 	err := http.ListenAndServe(":8081", router)
 	if err != nil {
 		log.Fatal(err)

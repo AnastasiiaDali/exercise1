@@ -1,4 +1,3 @@
-//go:generate moq -out internal/mocks/data_collector_moq.go -pkg=mocks . DataCollector
 package data_collector
 
 import (
@@ -13,18 +12,18 @@ import (
 	"exercise1/helpers/unique_numbers"
 )
 
-type DataCollector struct {
+type DataExtractor struct {
 }
 
-func New() *DataCollector {
-	return &DataCollector{}
+func New() *DataExtractor {
+	return &DataExtractor{}
 }
 
-func (dc *DataCollector) ExtractAndDeduplicateNumbers(ArrayOfNumbersFromCLI []string) []int {
+func (dc *DataExtractor) ExtractAndDeduplicateNumbersFromCLI(numbersFromCLI []string) []int {
 	var tempNumbers []int
 	var arrayOfNumbers []string
 
-	for _, str := range ArrayOfNumbersFromCLI {
+	for _, str := range numbersFromCLI {
 		stringWithoutSpaces := strings.ReplaceAll(str, " ", "")
 		arrayOfNumbers = strings.Split(stringWithoutSpaces, ",")
 	}
@@ -41,13 +40,13 @@ func (dc *DataCollector) ExtractAndDeduplicateNumbers(ArrayOfNumbersFromCLI []st
 	return numbers
 }
 
-func (dc *DataCollector) GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
+func (dc *DataExtractor) ExtractAndDeduplicateNumbersFromFiles(fileNamesFromCLI []string) []int {
 	var tempNumbers []int
 	var arrayOfInputs []string
 
 	wdir := "/Users/anastasiia.dalakishvili/github/personal/exercise1"
 
-	for _, file := range ArrayOfFileNamesFromCLI {
+	for _, file := range fileNamesFromCLI {
 		filePath := wdir + "/data/" + file
 
 		d, err := os.Open(filePath)
@@ -56,7 +55,7 @@ func (dc *DataCollector) GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []
 			return nil
 		}
 
-		data, err := readFile(d)
+		data, err := ReadFile(d)
 		if err != nil {
 			fmt.Printf("Failed to read file: %s", file)
 			return nil
@@ -73,7 +72,7 @@ func (dc *DataCollector) GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []
 
 }
 
-func readFile(reader io.Reader) (string, error) {
+func ReadFile(reader io.Reader) (string, error) {
 	var lines []string
 
 	scanner := bufio.NewScanner(reader)

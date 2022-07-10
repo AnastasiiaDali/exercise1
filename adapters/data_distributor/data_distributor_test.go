@@ -10,19 +10,19 @@ import (
 type mockDataCollector struct {
 }
 
-func (dc *mockDataCollector) ExtractAndDeduplicateNumbers(numbersFromCLI []string) []int {
+func (dc *mockDataCollector) ExtractAndDeduplicateNumbersFromCLI(numbersFromCLI []string) []int {
 	var numbers []int
 	return numbers
 }
 
-func (dc *mockDataCollector) GetNumbersFromFile(fileNamesFromCLI []string) []int {
+func (dc *mockDataCollector) ExtractAndDeduplicateNumbersFromFiles(fileNamesFromCLI []string) []int {
 	var numbers []int
 	return numbers
 }
 
 func TestDistribute(t *testing.T) {
 	t.Skip()
-	t.Run("Given array of file names should call GetNumbersFromFile function", func(t *testing.T) {
+	t.Run("Given array of file names should call ExtractAndDeduplicateNumbersFromFiles function", func(t *testing.T) {
 		fakeFileNames := []string{"file1", "file2"}
 		fakeNumbersFromCli := []string{}
 
@@ -31,8 +31,8 @@ func TestDistribute(t *testing.T) {
 
 		dataDistributor.Distribute(fakeFileNames, fakeNumbersFromCli)
 
-		assert.Len(t, dataCollector.GetNumbersFromFile, 1)
-		assert.Len(t, dataCollector.ExtractAndDeduplicateNumbers, 0)
+		assert.Len(t, dataCollector.ExtractAndDeduplicateNumbersFromFiles, 1)
+		assert.Len(t, dataCollector.ExtractAndDeduplicateNumbersFromCLI, 0)
 	})
 }
 
@@ -46,7 +46,7 @@ func TestDistribute(t *testing.T) {
 //
 //func TestDataDistributor(t *testing.T) {
 //	t.Skip()
-//	t.Run("Given array of file names should call GetNumbersFromFile function", func(t *testing.T) {
+//	t.Run("Given array of file names should call ExtractAndDeduplicateNumbersFromFiles function", func(t *testing.T) {
 //		fakeArrayOfFileNames := []string{"file1", "file2"}
 //		fakeArrayOfNumbersFromCli := []string{}
 //

@@ -16,14 +16,13 @@ func main() {
 	ReadFlags()
 
 	dataCollector := data_collector.New()
-
 	dataDistributor := data_distributor.New(dataCollector)
 
+	// get numbers from input
 	numbers := dataDistributor.Distribute(cli_flags.ArrayOfFileNamesFromCLI, cli_flags.ArrayOfNumbersFromCLI)
 
 	//pass this numbers to calculator and get the sum
 	calculator := calculator.New()
-
 	sum := calculator.Add(numbers)
 
 	//pass sum to formatter and get desired formatted sum

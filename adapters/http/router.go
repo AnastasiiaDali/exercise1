@@ -51,14 +51,4 @@ func (s server) calculator(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
 }
-
-//func MathServer() {
-//	r := mux.NewRouter()
-//	r.HandleFunc("/", HealthCheckHandler).Methods(http.MethodGet)
-//	r.HandleFunc("/add", MathHandler).Methods(http.MethodPost)
-//
-//	fmt.Printf("Starting server on port 8081...\n")
-//	http.ListenAndServe(":8081", r)
-//}

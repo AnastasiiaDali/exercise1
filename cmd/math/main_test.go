@@ -50,9 +50,10 @@ func TestMath_CalculatesAndReturnsSum(t *testing.T) {
 	waitForServer()
 
 	client := temphttp.NewClient("http://localhost:8081", &http.Client{})
+
 	numbers := []string{"11", "10"}
 	temp := client.Convert(numbers)
-	fmt.Printf("result %s\n", temp)
+
 	assert.NoError(t, err)
 	assert.Equal(t, "21", temp)
 }

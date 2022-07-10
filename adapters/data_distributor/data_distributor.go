@@ -1,8 +1,8 @@
 package data_distributor
 
 type DataCollector interface {
-	ExtractAndDeduplicateNumbers([]string) []int
-	GetNumbersFromFile([]string) []int
+	ExtractAndDeduplicateNumbersFromCLI([]string) []int
+	ExtractAndDeduplicateNumbersFromFiles([]string) []int
 }
 
 type DataDistributor struct {
@@ -21,9 +21,9 @@ func (dd *DataDistributor) Distribute(fileNamesFromCLI []string, numbersFromCLI 
 	if len(numbersFromCLI) != 0 && len(fileNamesFromCLI) != 0 {
 		return nil
 	} else if len(fileNamesFromCLI) != 0 {
-		numbers = dd.dataCollector.GetNumbersFromFile(fileNamesFromCLI)
+		numbers = dd.dataCollector.ExtractAndDeduplicateNumbersFromFiles(fileNamesFromCLI)
 	} else if len(numbersFromCLI) != 0 {
-		numbers = dd.dataCollector.ExtractAndDeduplicateNumbers(numbersFromCLI)
+		numbers = dd.dataCollector.ExtractAndDeduplicateNumbersFromCLI(numbersFromCLI)
 	}
 
 	return numbers
