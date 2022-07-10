@@ -35,9 +35,8 @@ OR
 
 ### Run Math Locally
 ```bash
- math --web-server
-```
 ./math
+```
 
 ### Running Tests
 To run tests, run the following command inside exercise1 directory:

@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strings"
 
@@ -16,10 +15,7 @@ func GetNumbersFromFile(ArrayOfFileNamesFromCLI []string) []int {
 	var tempNumbers []int
 	var arrayOfInputs []string
 
-	wdir, err := os.Getwd()
-	if err != nil {
-		log.Println(err)
-	}
+	wdir := "/Users/anastasiia.dalakishvili/github/personal/exercise1"
 
 	for _, file := range ArrayOfFileNamesFromCLI {
 		filePath := wdir + "/data/" + file

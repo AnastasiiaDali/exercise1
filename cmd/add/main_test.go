@@ -57,7 +57,6 @@ func TestCLIFlags(t *testing.T) {
 }
 
 func TestCLIFlags2(t *testing.T) {
-	t.Skip()
 	file := "input2.csv"
 
 	dir, err := os.Getwd()
