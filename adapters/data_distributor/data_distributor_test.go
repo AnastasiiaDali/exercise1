@@ -1,6 +1,7 @@
 package data_distributor_test
 
 import (
+	"io/fs"
 	"testing"
 
 	"exercise1/adapters/data_distributor"
@@ -8,6 +9,11 @@ import (
 )
 
 type mockDataCollector struct {
+}
+
+func (dc *mockDataCollector) ExtractAndDeduplicateNumbersFromFiles2(fs fs.FS) []int {
+	//TODO implement me
+	return []int{}
 }
 
 func (dc *mockDataCollector) ExtractAndDeduplicateNumbersFromCLI([]string) []int {

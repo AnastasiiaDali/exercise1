@@ -1,8 +1,11 @@
 package data_distributor
 
+import "io/fs"
+
 type DataCollector interface {
 	ExtractAndDeduplicateNumbersFromCLI([]string) []int
 	ExtractAndDeduplicateNumbersFromFiles([]string) []int
+	ExtractAndDeduplicateNumbersFromFiles2(fs fs.FS) []int
 }
 
 type DataDistributor struct {
