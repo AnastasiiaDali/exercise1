@@ -3,6 +3,7 @@ package data_collector_test
 import (
 	"bytes"
 	"testing"
+	"testing/fstest"
 
 	"exercise1/adapters/data_collector"
 	"github.com/stretchr/testify/assert"
@@ -52,5 +53,16 @@ func TestExtractAndDeduplicateNumbersFromFiles(t *testing.T) {
 			t.Error("Failed to read csv data")
 		}
 		assert.Equal(t, content, expectedData)
+	})
+}
+
+func TestExtractAndDeduplicateNumbersFromFiles2(t *testing.T) {
+	t.Run("given 2 files with numbers when read the files expect array of numbers", func(t *testing.T) {
+		dirFS := fstest.MapFS{
+			"input1.txt": {Data: []byte("4\n5\n6\n")},
+		}
+		dataCollector := data_collector.New()
+		numbers := dataCollector.ExtractAndDeduplicateNumbersFromFiles2(dirFS)
+		assert.Equal(t, []int{4, 5, 6}, numbers)
 	})
 }
