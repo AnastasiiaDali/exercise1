@@ -32,8 +32,16 @@ func (s server) calculator(w http.ResponseWriter, r *http.Request) {
 
 	//get numbers from url
 	num := r.URL.Query()
-	for _, v := range num {
-		numbersStr = v
+
+	if !num.Has("num") {
+		r.ParseForm()
+		for _, value := range r.Form {
+			numbersStr = value
+		}
+	} else if num.Has("num") {
+		for _, v := range num {
+			numbersStr = v
+		}
 	}
 
 	//convert number into array of integers
