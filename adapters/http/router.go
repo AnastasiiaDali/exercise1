@@ -2,6 +2,7 @@ package temphttp
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
 
 	"exercise1/domain/formatter"
@@ -26,7 +27,9 @@ func NewRouter(calculatorService TempCalculator) http.Handler {
 }
 
 func (s server) calculator(w http.ResponseWriter, r *http.Request) {
-	var numbersStr []string
+	var t struct {
+		Nums []string
+	}
 
 	formatter := formatter.New()
 
@@ -36,16 +39,27 @@ func (s server) calculator(w http.ResponseWriter, r *http.Request) {
 	if !num.Has("num") {
 		r.ParseForm()
 		for _, value := range r.Form {
-			numbersStr = value
+			t.Nums = value
 		}
 	} else if num.Has("num") {
 		for _, v := range num {
-			numbersStr = v
+			t.Nums = v
+		}
+	}
+
+	resBytes, err := io.ReadAll(r.Body)
+	if err != nil {
+		panic(err)
+	}
+	if len(resBytes) != 0 {
+		err = json.Unmarshal(resBytes, &t)
+		if err != nil {
+			panic(err)
 		}
 	}
 
 	//convert number into array of integers
-	numbers := string_to_int_converter.StringToIntConverter(numbersStr)
+	numbers := string_to_int_converter.StringToIntConverter(t.Nums)
 
 	sum := s.tempCalculator.Add(numbers)
 	formatterSum := formatter.FormatNumbers(sum)
