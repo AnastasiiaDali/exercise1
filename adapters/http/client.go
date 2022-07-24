@@ -22,6 +22,7 @@ func NewClient(baseURL string, client *http.Client) *Client {
 
 func (c *Client) Convert(numbers []string) string {
 	req, err := http.NewRequest(http.MethodPost, c.baseURL+"/add?", nil)
+	req.Header.Add("Authorization", "Bearer SUPER_SECRET_API_KEY")
 	q := req.URL.Query()
 
 	for _, num := range numbers {
