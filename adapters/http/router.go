@@ -5,8 +5,10 @@ import (
 	"io"
 	"net/http"
 
+	"exercise1/adapters/http/auth"
 	"exercise1/domain/formatter"
 	"exercise1/helpers/string_to_int_converter"
+	mux2 "github.com/gorilla/mux"
 )
 
 type TempCalculator interface {
@@ -20,8 +22,12 @@ type server struct {
 func NewRouter(calculatorService TempCalculator) http.Handler {
 	svr := server{tempCalculator: calculatorService}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/add", svr.calculator)
+	authMiddleware := auth.NewAuthMiddleware()
+	mux := mux2.NewRouter()
+
+	mux.Use(authMiddleware.AuthHandler)
+
+	mux.HandleFunc("/add", svr.calculator).Methods(http.MethodPost)
 
 	return mux
 }
@@ -30,8 +36,6 @@ func (s server) calculator(w http.ResponseWriter, r *http.Request) {
 	var t struct {
 		Nums []string
 	}
-
-	formatter := formatter.New()
 
 	//get numbers from url
 	num := r.URL.Query()
@@ -62,6 +66,9 @@ func (s server) calculator(w http.ResponseWriter, r *http.Request) {
 	numbers := string_to_int_converter.StringToIntConverter(t.Nums)
 
 	sum := s.tempCalculator.Add(numbers)
+
+	//format sum
+	formatter := formatter.New()
 	formatterSum := formatter.FormatNumbers(sum)
 
 	res, err := json.Marshal(formatterSum)
