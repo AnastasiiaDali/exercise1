@@ -2,10 +2,13 @@ package main_test
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -57,8 +60,13 @@ func TestCLIFlags(t *testing.T) {
 }
 
 func TestCLIFlags2(t *testing.T) {
-	t.Skip()
-	file := "input1.txt"
+	file, err := ioutil.TempFile(".", "example.txt")
+	require.NoError(t, err)
+
+	_, err = file.Write([]byte("1,867683"))
+	require.NoError(t, err)
+
+	defer os.RemoveAll(file.Name())
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -68,7 +76,7 @@ func TestCLIFlags2(t *testing.T) {
 	cmdPath := filepath.Join(dir, binName)
 	fmt.Printf("here is it %s\n", cmdPath)
 
-	cmd := exec.Command(cmdPath, "--input-file", file)
+	cmd := exec.Command(cmdPath, "--input-file", file.Name())
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {

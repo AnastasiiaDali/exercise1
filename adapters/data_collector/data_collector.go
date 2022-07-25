@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/fs"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -45,14 +46,12 @@ func (dc *DataExtractor) ExtractAndDeduplicateNumbersFromFiles(fileNamesFromCLI 
 	var tempNumbers []int
 	var arrayOfInputs []string
 
-	wdir := "/Users/anastasiia.dalakishvili/github/personal/exercise1"
-
 	for _, file := range fileNamesFromCLI {
-		filePath := wdir + "/data/" + file
+		abcFilePath, _ := filepath.Abs(file)
 
-		d, err := os.Open(filePath)
+		d, err := os.Open(abcFilePath)
 		if err != nil {
-			fmt.Printf("Failed to open file: %s\n", filePath)
+			fmt.Printf("Failed to open file: %s\n, error is %v", abcFilePath, err)
 			return nil
 		}
 

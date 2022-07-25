@@ -2,11 +2,14 @@ package data_collector_test
 
 import (
 	"bytes"
+	"io/ioutil"
+	"os"
 	"testing"
 	"testing/fstest"
 
 	"exercise1/adapters/data_collector"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestExtractAndDeduplicateNumbersFromCLI(t *testing.T) {
@@ -53,6 +56,23 @@ func TestExtractAndDeduplicateNumbersFromFiles(t *testing.T) {
 			t.Error("Failed to read csv data")
 		}
 		assert.Equal(t, content, expectedData)
+	})
+	t.Run("given a a file name should return number from that file", func(t *testing.T) {
+		// given a file with numbers
+		file, err := ioutil.TempFile(".", "example.txt")
+		require.NoError(t, err)
+
+		_, err = file.Write([]byte("1,5,6"))
+		require.NoError(t, err)
+
+		defer os.RemoveAll(file.Name())
+
+		// when we call ExtractAndDeduplicateNumbersFromFiles
+		dataCollector := data_collector.New()
+		numbers := dataCollector.ExtractAndDeduplicateNumbersFromFiles([]string{file.Name()})
+
+		// then we expect a list of number from the file
+		assert.Equal(t, []int{1, 5, 6}, numbers)
 	})
 }
 
