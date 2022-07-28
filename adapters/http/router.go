@@ -3,12 +3,16 @@ package temphttp
 import (
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
+	"os"
+	"strings"
 
 	"exercise1/adapters/http/auth"
 	"exercise1/domain/formatter"
 	"exercise1/helpers/string_to_int_converter"
 	mux2 "github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 type TempCalculator interface {
@@ -20,9 +24,24 @@ type server struct {
 }
 
 func NewRouter(calculatorService TempCalculator) http.Handler {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	keys := os.Getenv("AUTH_KEYS")
+
+	authKeys := strings.Split(keys, ",")
+
+	var authorisedUsers []string
+
+	for _, key := range authKeys {
+		authorisedUsers = append(authorisedUsers, key)
+	}
+
 	svr := server{tempCalculator: calculatorService}
 
-	authMiddleware := auth.NewAuthMiddleware()
+	authMiddleware := auth.NewAuthMiddleware(authorisedUsers)
 	mux := mux2.NewRouter()
 
 	mux.Use(authMiddleware.AuthHandler)

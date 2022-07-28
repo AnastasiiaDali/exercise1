@@ -38,6 +38,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestMath_CalculatesAndReturnsSum(t *testing.T) {
+	t.Skip()
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
