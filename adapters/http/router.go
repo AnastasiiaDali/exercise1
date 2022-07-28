@@ -30,11 +30,9 @@ func NewRouter(calculatorService TempCalculator) http.Handler {
 	}
 
 	keys := os.Getenv("AUTH_KEYS")
-
 	authKeys := strings.Split(keys, ",")
 
 	var authorisedUsers []string
-
 	for _, key := range authKeys {
 		authorisedUsers = append(authorisedUsers, key)
 	}
@@ -42,8 +40,8 @@ func NewRouter(calculatorService TempCalculator) http.Handler {
 	svr := server{tempCalculator: calculatorService}
 
 	authMiddleware := auth.NewAuthMiddleware(authorisedUsers)
-	mux := mux2.NewRouter()
 
+	mux := mux2.NewRouter()
 	mux.Use(authMiddleware.AuthHandler)
 
 	mux.HandleFunc("/add", svr.calculator).Methods(http.MethodPost)

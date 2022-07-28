@@ -14,10 +14,6 @@ type AuthMiddleware struct {
 	users AuthorisedUsers
 }
 
-//func (a *AuthorisedUsers) Decode(value string) error {
-//	return json.Unmarshal([]byte(value), &a)
-//}
-
 func NewAuthMiddleware(au AuthorisedUsers) AuthMiddleware {
 	return AuthMiddleware{users: au}
 }

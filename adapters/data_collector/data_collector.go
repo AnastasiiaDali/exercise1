@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -72,37 +71,6 @@ func (dc *DataExtractor) ExtractAndDeduplicateNumbersFromFiles(fileNamesFromCLI 
 
 }
 
-func (dc *DataExtractor) ExtractAndDeduplicateNumbersFromFiles2(fileDirectory fs.FS) []int {
-	var tempNumbers []int
-	var arrayOfInputs []string
-
-	dir, err := fs.ReadDir(fileDirectory, ".")
-	if err != nil {
-		panic(err)
-	}
-
-	for _, file := range dir {
-		d, err := fileDirectory.Open(file.Name())
-		if err != nil {
-			fmt.Printf("Failed to open file: %s\n", file.Name())
-			return nil
-		}
-
-		data, err := ReadFile(d)
-		if err != nil {
-			fmt.Printf("Failed to read file: %s", file)
-			return nil
-		}
-		arrayOfInputs = append(arrayOfInputs, data)
-		d.Close()
-	}
-
-	tempNumbers = data_converter.DataConverter(strings.Join(arrayOfInputs[:], ","))
-
-	numbers := unique_numbers.UniqueNumbers(tempNumbers)
-
-	return numbers
-}
 func ReadFile(reader io.Reader) (string, error) {
 	var lines []string
 
