@@ -7,12 +7,14 @@ import (
 
 	"exercise1/adapters/http"
 	calculator "exercise1/domain/calculator"
+	fibonacci "exercise1/domain/fibonacci"
 )
 
 func main() {
 	calculator := calculator.New()
+	fibonacci := fibonacci.NewFibonacci()
 
-	router := temphttp.NewRouter(calculator)
+	router := temphttp.NewRouter(calculator, fibonacci)
 
 	fmt.Printf("Starting server on port 8081...\n")
 
