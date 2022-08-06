@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 )
@@ -21,7 +20,6 @@ func NewAuthMiddleware(au AuthorisedUsers) AuthMiddleware {
 func (m *AuthMiddleware) AuthHandler(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		bearerToken := strings.TrimSpace(r.Header.Get("Authorization"))
-		fmt.Printf("users are here %s", m.users)
 		if !strings.HasPrefix(bearerToken, bearerPrefix) {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
