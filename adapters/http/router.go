@@ -34,7 +34,7 @@ func NewRouter(calculator Calculator, fibonacci Fibonacci) http.Handler {
 	authMiddleware := auth.NewAuthMiddleware(authorisedUsers)
 	loggingMiddleware := logger2.NewAuthMiddleware()
 	mux := mux2.NewRouter()
-	mux.Use(authMiddleware.AuthHandler, loggingMiddleware.AuthHandler)
+	mux.Use(loggingMiddleware.AuthHandler, authMiddleware.AuthHandler)
 
 	mux.HandleFunc("/add", mathHandler.SumHandler).Methods(http.MethodPost)
 	mux.HandleFunc("/fibonacci/{n}", fibHandler.FibHandler).Methods(http.MethodGet)
