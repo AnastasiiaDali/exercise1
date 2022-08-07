@@ -44,11 +44,10 @@ func (m *LoggingMiddleware) AuthHandler(handler http.Handler) http.Handler {
 		authorizationKey := r.Header.Get("Authorization")
 		key := strings.Replace(authorizationKey, "Bearer", "", 1)
 		cutKey := key[0:9]
-		time := time.Now().Format("02/Jan/2006:15:04:05 -0700")
+		time := time.Now().Format("2006-02-01T15:04:05Z")
 		o := &responseObserver{ResponseWriter: w}
 		handler.ServeHTTP(o, r)
 
-		log.Printf("%s %s %s %s %s %d\n", r.Method, r.URL, r.Body, cutKey, time, o.status)
-
+		log.Printf("Time:%s;\n Method: %s;\n URL: %s;\n Auth Token%s;\n Status Code: %d;\n ContentLength: %d\n", time, r.Method, r.URL, cutKey, o.status, r.ContentLength)
 	})
 }
