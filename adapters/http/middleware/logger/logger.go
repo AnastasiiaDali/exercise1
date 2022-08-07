@@ -41,10 +41,13 @@ func NewAuthMiddleware() LoggingMiddleware {
 
 func (m *LoggingMiddleware) AuthHandler(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		authorizationKey := r.Header.Get("Authorization")
-		key := strings.Replace(authorizationKey, "Bearer", "", 1)
-		cutKey := key[0:9]
-		time := time.Now().Format("2006-02-01T15:04:05Z")
+		var (
+			time             = time.Now().Format("2006-02-01T15:04:05Z")
+			authorizationKey = r.Header.Get("Authorization")
+			key              = strings.Replace(authorizationKey, "Bearer", "", 1)
+			cutKey           = key[0:9]
+		)
+
 		o := &responseObserver{ResponseWriter: w}
 		handler.ServeHTTP(o, r)
 
