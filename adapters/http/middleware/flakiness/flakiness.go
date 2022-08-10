@@ -26,11 +26,6 @@ func (f *FlakinessMiddleware) FlakinessHandler(handler http.Handler) http.Handle
 
 		flakiness := r.URL.Query()["flakiness"]
 
-		if len(flakiness) == 0 {
-			handler.ServeHTTP(w, r)
-			return
-		}
-
 		f := strings.Join(flakiness, "")
 		probability, err := strconv.ParseFloat(f, 32)
 		if err != nil {
