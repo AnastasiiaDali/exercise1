@@ -9,7 +9,7 @@ string of numbers passed through command line and returns a sum
 "Math" program spins up the server and returns the sum of numbers passed in URL.
 Once you spinned up the server, use your postman to send POST request
 ```bash
-http://localhost:8081/add?num=76&num=65
+http://localhost:8082/add?num=76&num=65
 ```
 Should return 141
 

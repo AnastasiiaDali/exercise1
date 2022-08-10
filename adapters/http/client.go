@@ -1,7 +1,6 @@
 package temphttp
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -41,7 +40,5 @@ func (c *Client) Convert(numbers []string) string {
 
 	body, _ := io.ReadAll(res.Body)
 
-	var result string
-	err = json.Unmarshal(body, &result)
-	return result
+	return string(body)
 }

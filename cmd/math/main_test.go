@@ -38,7 +38,6 @@ func TestMain(m *testing.M) {
 }
 
 func TestMath_CalculatesAndReturnsSum(t *testing.T) {
-	t.Skip()
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
@@ -50,7 +49,7 @@ func TestMath_CalculatesAndReturnsSum(t *testing.T) {
 
 	waitForServer()
 
-	client := temphttp.NewClient("http://localhost:8081", &http.Client{})
+	client := temphttp.NewClient("http://localhost:8082", &http.Client{})
 
 	numbers := []string{"11", "10"}
 	temp := client.Convert(numbers)
@@ -61,7 +60,7 @@ func TestMath_CalculatesAndReturnsSum(t *testing.T) {
 
 func waitForServer() {
 	for i := 0; i < 10; i++ {
-		conn, _ := net.Dial("tcp", net.JoinHostPort("localhost", "8081"))
+		conn, _ := net.Dial("tcp", net.JoinHostPort("localhost", "8082"))
 		if conn != nil {
 			conn.Close()
 			break

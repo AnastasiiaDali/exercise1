@@ -16,9 +16,9 @@ func main() {
 
 	router := temphttp.NewRouter(calculator, fibonacci)
 
-	fmt.Printf("Starting server on port 8081...\n")
+	fmt.Printf("Starting server on port 8082...\n")
 
-	err := http.ListenAndServe(":8081", router)
+	err := http.ListenAndServe(":8082", router)
 	if err != nil {
 		log.Fatal(err)
 	}
