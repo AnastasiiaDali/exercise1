@@ -25,24 +25,31 @@ func (f *FlakinessMiddleware) FlakinessHandler(handler http.Handler) http.Handle
 		var (
 			responseStatus = http.StatusInternalServerError
 			flakiness      = r.URL.Query()["flakiness"]
+			probability    = 0.0
 		)
 
 		random := min + rand.Float64()*(max-min)
 
 		flakinessParams := strings.Split(flakiness[0], ",")
+
 		if len(flakinessParams) >= 2 {
-			responseStatus, _ = strconv.Atoi(flakinessParams[1])
+			status, _ := strconv.Atoi(flakinessParams[1])
+			responseStatus = status
+			w.WriteHeader(responseStatus)
+			return
 		} else {
 			f := strings.Join(flakiness, "")
-			probability, err := strconv.ParseFloat(f, 32)
-
+			p, err := strconv.ParseFloat(f, 32)
 			if err != nil {
 				log.Fatal("error converting flakiness into an float")
 			}
-			if random <= probability {
-				w.WriteHeader(responseStatus)
-				return
-			}
+
+			probability = p
+		}
+
+		if random <= probability {
+			w.WriteHeader(responseStatus)
+			return
 		}
 
 		handler.ServeHTTP(w, r)
