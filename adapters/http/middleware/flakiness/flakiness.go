@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const (
@@ -32,7 +33,19 @@ func (f *FlakinessMiddleware) FlakinessHandler(handler http.Handler) http.Handle
 
 		flakinessParams := strings.Split(flakiness[0], ",")
 
-		if len(flakinessParams) >= 2 {
+		if len(flakinessParams) >= 3 {
+			status, _ := strconv.Atoi(flakinessParams[1])
+			responseStatus = status
+			sleep := flakinessParams[2]
+			parsedDelay, err := time.ParseDuration(sleep)
+			if err != nil {
+				log.Fatal("error parsing sleep duration %w", err)
+			}
+
+			time.Sleep(parsedDelay)
+			w.WriteHeader(responseStatus)
+			return
+		} else if len(flakinessParams) >= 2 {
 			status, _ := strconv.Atoi(flakinessParams[1])
 			responseStatus = status
 			w.WriteHeader(responseStatus)
