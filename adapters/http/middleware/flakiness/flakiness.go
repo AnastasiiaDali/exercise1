@@ -24,43 +24,44 @@ func NewFlakinessMiddleware() FlakinessMiddleware {
 func (f *FlakinessMiddleware) FlakinessHandler(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var (
-			responseStatus = http.StatusInternalServerError
-			flakiness      = r.URL.Query()["flakiness"]
-			probability    = 0.0
+			responseStatus  = http.StatusInternalServerError
+			flakiness       = r.URL.Query()["flakiness"]
+			probability     = 0.0
+			randomN         = min + rand.Float64()*(max-min)
+			flakinessParams = strings.Split(flakiness[0], ",")
+			length          = len(flakinessParams)
 		)
 
-		random := min + rand.Float64()*(max-min)
-
-		flakinessParams := strings.Split(flakiness[0], ",")
-
-		if len(flakinessParams) >= 3 {
-			status, _ := strconv.Atoi(flakinessParams[1])
+		switch length {
+		case 3:
+			status, err := strconv.Atoi(flakinessParams[1])
+			if err != nil {
+				log.Fatal("error converting flakinessParams into integer status %w", err)
+			}
 			responseStatus = status
+
 			sleep := flakinessParams[2]
 			parsedDelay, err := time.ParseDuration(sleep)
 			if err != nil {
 				log.Fatal("error parsing sleep duration %w", err)
 			}
-
 			time.Sleep(parsedDelay)
+
 			w.WriteHeader(responseStatus)
 			return
-		} else if len(flakinessParams) >= 2 {
+		case 2:
 			status, _ := strconv.Atoi(flakinessParams[1])
 			responseStatus = status
 			w.WriteHeader(responseStatus)
 			return
-		} else {
-			f := strings.Join(flakiness, "")
-			p, err := strconv.ParseFloat(f, 32)
-			if err != nil {
-				log.Fatal("error converting flakiness into an float")
-			}
-
-			probability = p
 		}
 
-		if random <= probability {
+		probability, err := strconv.ParseFloat(strings.Join(flakiness, ""), 32)
+		if err != nil {
+			log.Fatal("error converting flakiness into an float")
+		}
+
+		if randomN <= probability {
 			w.WriteHeader(responseStatus)
 			return
 		}

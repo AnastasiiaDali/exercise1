@@ -57,13 +57,6 @@ func TestFlakinessMiddleware(t *testing.T) {
 			SleepTime:    3,
 			Time:         "seconds",
 		},
-		{
-			Name:         "Given a delay of 500ms response should be delayed for 500ms",
-			Query:        "?flakiness=1,404,500ms",
-			ResponseCode: http.StatusNotFound,
-			SleepTime:    500,
-			Time:         "milliseconds",
-		},
 	}
 
 	for _, tc := range flakinessMiddlewareTests {
