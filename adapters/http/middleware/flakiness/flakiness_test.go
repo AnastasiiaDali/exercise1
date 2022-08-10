@@ -36,6 +36,11 @@ func TestFlakinessMiddleware(t *testing.T) {
 			Query:        "?num=2&num=3&flakiness=0",
 			ResponseCode: http.StatusOK,
 		},
+		{
+			Name:         "Given flakiness 1 should return 404 response",
+			Query:        "?num=2&num=3&flakiness=1,404",
+			ResponseCode: http.StatusOK,
+		},
 	}
 
 	for _, tc := range flakinessMiddlewareTests {

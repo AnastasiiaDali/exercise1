@@ -22,19 +22,27 @@ func NewFlakinessMiddleware() FlakinessMiddleware {
 
 func (f *FlakinessMiddleware) FlakinessHandler(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var (
+			responseStatus = http.StatusInternalServerError
+			flakiness      = r.URL.Query()["flakiness"]
+		)
+
 		random := min + rand.Float64()*(max-min)
 
-		flakiness := r.URL.Query()["flakiness"]
+		flakinessParams := strings.Split(flakiness[0], ",")
+		if len(flakinessParams) >= 2 {
+			responseStatus, _ = strconv.Atoi(flakinessParams[1])
+		} else {
+			f := strings.Join(flakiness, "")
+			probability, err := strconv.ParseFloat(f, 32)
 
-		f := strings.Join(flakiness, "")
-		probability, err := strconv.ParseFloat(f, 32)
-		if err != nil {
-			log.Fatal("error converting flakiness into an float")
-		}
-
-		if random <= probability {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
+			if err != nil {
+				log.Fatal("error converting flakiness into an float")
+			}
+			if random <= probability {
+				w.WriteHeader(responseStatus)
+				return
+			}
 		}
 
 		handler.ServeHTTP(w, r)
