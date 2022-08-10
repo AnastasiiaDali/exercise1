@@ -9,6 +9,7 @@ import (
 	fibonacci2 "exercise1/adapters/http/fibonacci"
 	"exercise1/adapters/http/math"
 	"exercise1/adapters/http/middleware/auth"
+	"exercise1/adapters/http/middleware/flakiness"
 	logger2 "exercise1/adapters/http/middleware/logger"
 	mux2 "github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -33,8 +34,10 @@ func NewRouter(calculator Calculator, fibonacci Fibonacci) http.Handler {
 
 	authMiddleware := auth.NewAuthMiddleware(authorisedUsers)
 	loggingMiddleware := logger2.NewAuthMiddleware()
+	flakinessMiddleware := flakiness.NewFlakinessMiddleware()
+
 	mux := mux2.NewRouter()
-	mux.Use(loggingMiddleware.AuthHandler, authMiddleware.AuthHandler)
+	mux.Use(loggingMiddleware.AuthHandler, authMiddleware.AuthHandler, flakinessMiddleware.FlakinessHandler)
 
 	mux.HandleFunc("/add", mathHandler.SumHandler).Methods(http.MethodPost)
 	mux.HandleFunc("/fibonacci/{n}", fibHandler.FibHandler).Methods(http.MethodGet)
