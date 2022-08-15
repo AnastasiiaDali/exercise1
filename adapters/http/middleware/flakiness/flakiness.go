@@ -1,6 +1,7 @@
 package flakiness
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -42,6 +43,7 @@ func (f *FlakinessMiddleware) FlakinessHandler(handler http.Handler) http.Handle
 
 			sleep := flakinessParams[2]
 			parsedDelay, err := time.ParseDuration(sleep)
+			fmt.Printf("delay %s", parsedDelay)
 			if err != nil {
 				log.Fatal("error parsing sleep duration %w", err)
 			}
